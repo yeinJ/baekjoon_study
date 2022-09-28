@@ -1,7 +1,5 @@
 import sys
 input=sys.stdin.readline
-
-
 T = int(input())
 memo_zero = [0]*41
 memo_one = [0]*41
