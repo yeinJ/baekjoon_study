@@ -15,7 +15,7 @@ def solution(genres, plays):
         else :
             dic_gen[genres[i]]=[plays[i]]
         dic_gen[genres[i]].sort(reverse=True)
-    sorted_dic = sorted(dic_gen.items(), key=lambda item:sum(item[1]), reverse=True)
+    sorted_dic = sorted(dic_gen.items(), key=lambda item:(sum(item[1]),item[1]),reverse=True)
     # for i in sorted_dic:
     #     i[1]
     for i in sorted_dic:
