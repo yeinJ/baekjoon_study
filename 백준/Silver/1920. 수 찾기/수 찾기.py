@@ -1,23 +1,27 @@
 import sys
 input = sys.stdin.readline
-N = int(input())
-A = list(map(int,input().split()))
-A.sort()
-M = int(input())
-targets = list(map(int,input().split()))
-start = 0
-end = N-1
 
-def binary_sort(arr,target,start,end):
-    while start<=end:
+n = int(input())
+num_lst = list(map(int,input().split()))
+num_lst.sort()
+m = int(input())
+find_lst = list(map(int,input().split()))
+
+def binary_sort(target,data):
+    start = 0
+    end = n-1
+    while start <= end :
         mid = (start+end)//2
-        if target == arr[mid]:
-            return 1
-        elif target > arr[mid]:
-            start = mid+1
+        if data[mid]==target:
+            return True
+        elif data[mid]<target:
+            start=mid+1
         else :
-            end = mid-1
-    return 0
+            end=mid-1
+    return False
 
-for target in targets:
-    print(binary_sort(A,target,start,end))
+for i in find_lst:
+    if binary_sort(i,num_lst):
+        print(1)
+    else :
+        print(0)
