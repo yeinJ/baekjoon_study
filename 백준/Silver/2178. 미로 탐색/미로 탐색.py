@@ -1,20 +1,25 @@
-#2178
-di,dj = [0,1,0,-1],[1,0,-1,0]
-N , M = map(int,input().split())
-arr = [list(map(int,input())) for _ in range(N)]
-visited=[[0]*M for _ in range(N)]
-q = [(0,0)]
+'''
+1 : 이동할 수 있는 칸
+0 : 이동할 수 없는 칸
+1,1 -> n,m 위치 이동 시, 지나야 하는 최소 칸 수 구하기
+(최소 칸 -> bfs 이용)
+'''
+from collections import deque
+n,m = map(int,input().split())
+miro = [list(input()) for _ in range(n)] # 붙어서 주어지기에 list로 떼 줘야 함 -> str로 표시
+q = deque()
+q.append((0,0)) # 시작점 넣기
+di = [0,1,0,-1]
+dj = [1,0,-1,0] # 4 방향 표시
+visited= [[1e9]*m for _ in range(n)]
 visited[0][0]=1
-ans = 0
-while q:
-    i,j = q.pop(0)
-    if i==N-1 and j==M-1:
-        ans = visited[i][j]
-        break
-    for a in range(4):
-        ni = i+di[a]
-        nj = j+dj[a]
-        if 0<=ni<N and 0<=nj<M and arr[ni][nj]==1 and visited[ni][nj]==0:
-            q.append((ni,nj))
-            visited[ni][nj]=visited[i][j]+1
-print(ans)
+while q :
+    i,j = q.popleft()
+    for h in range(4):
+        ni = i + di[h]
+        nj = j + dj[h]
+        if 0<=ni<n and 0<=nj<m:
+            if miro[ni][nj]=='1' and visited[ni][nj]>visited[i][j]+1:
+                visited[ni][nj]=visited[i][j]+1
+                q.append((ni,nj))
+print(visited[n-1][m-1])
