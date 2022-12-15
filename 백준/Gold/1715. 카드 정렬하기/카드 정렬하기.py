@@ -1,18 +1,16 @@
-import heapq
 import sys
+import heapq
 input = sys.stdin.readline
+n = int(input())
+card = []
+for i in range(n):
+    heapq.heappush(card,int(input()))
+ans = 0
+while len(card)>1 :
+    num1 = heapq.heappop(card)
+    num2 = heapq.heappop(card)
+    heapq.heappush(card,num1+num2)
+    ans += (num1+num2)
 
-N = int(input())
-number=[int(input()) for _ in range(N)]
-number.sort()
-def card():
-    ans = 0
-    q = number
-    while len(q)>=2:
-        num = heapq.heappop(q)
-        num2 = heapq.heappop(q)
-        num3=num+num2
-        ans += num3
-        heapq.heappush(q,num3)
-    return ans
-print(card())
+
+print(ans)
