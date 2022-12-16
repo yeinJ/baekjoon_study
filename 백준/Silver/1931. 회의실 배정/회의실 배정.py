@@ -1,12 +1,17 @@
-N = int(input())
-arr = [list(map(int,input().split())) for _ in range(N)]
-arr=sorted(arr)
-min_time = arr[0]
-cnt = 1
-for i in range(1,N):
-    if min_time[1] <= arr[i][0]:
-        min_time = arr[i]
-        cnt += 1
-    elif min_time[0]<=arr[i][0] and min_time[1]>=arr[i][1]:
-        min_time = arr[i]
-print(cnt)
+import sys
+input = sys.stdin.readline
+n = int(input()) # 회의의 수
+time = []
+for _ in range(n):
+    start,end = map(int,input().split()) # start : 시작시간, end:끝나는 시간
+    time.append([start,end])
+
+time.sort(key=lambda x:(x[1],x[0]))
+end_time = time[0][1]
+count = 1
+for i in range(1,n):
+    if time[i][0]>=end_time:
+        count += 1
+        end_time = time[i][1]
+
+print(count)
