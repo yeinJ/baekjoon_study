@@ -1,19 +1,11 @@
-import sys
-input = sys.stdin.readline
-t = int(input())
-for tc in range(t):
-    a,b = map(int,input().split())
-    j = 2
-    num_list = []
-    while j<=min(a,b) :
-        if a%j==0 and b%j==0 :
-            a//=j
-            b//=j
-            num_list.append(j)
-        else :
-            j += 1
+def gcd(a,b):
+    if b==0 : # b가 0이면 a가 최대공약수
+        return a
+    else :
+        return gcd(b,a%b) # 작은수, 큰수 % 작은수
 
-    ans = a*b
-    for i in num_list:
-        ans *=i
-    print(ans)
+t= int(input())
+for i in range(t):
+    a,b = map(int,input().split())
+    answer=a*b/gcd(a,b)
+    print(int(answer))
