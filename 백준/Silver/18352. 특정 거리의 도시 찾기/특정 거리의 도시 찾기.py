@@ -1,40 +1,31 @@
 from collections import deque
 import sys
-input = sys.stdin.readline          # 받는 값이 1만 이상일 경우 import sys 사용
-
-def dfs(v):
-    global visit
-    cnt = 0
-    visit[v]=99999999999999
-    queue = deque([v])
-    while queue:
-        cnt += 1
-        for h in range(len(queue)):
-            a = queue.popleft()
-            for i in road[a]:
-                if visit[i] == 0:
-                    queue.append(i)
-                    visit[i]=cnt
-
-
-n,m,k,x = map(int,input().split())
-road = [[] for _ in range(n+1)]
-visit = [0]*(n+1)
-for i in range(m):
+input = sys.stdin.readline
+n,m,k,x = map(int,input().split()) # n:도시의개수, m:도로의개수, k:거리정보, x:출발 도시의 번호
+graph = [[] for _ in range(n+1)]
+for _ in range(m): # 도로의 개수 list
     a,b = map(int,input().split())
-    road[a].append(b)
-dfs(x)
-ans = -1
-bns = []
+    graph[a].append(b)
 
-for i in range(len(visit)):
-    if visit[i]==k:
-        ans = 1
-        bns.append(i)
-bns.sort()
+visited = [0]*(n+1)
 
-if ans == -1:
-    print(ans)
+cnt = 0
+q = deque([x]) # 시작 도시, 거리
+visited[x]=1e9
+while q:
+    cnt += 1
+    for _ in range(len(q)):
+        v = q.popleft()
+        for i in graph[v]:
+            if visited[i]==0:
+                visited[i]=cnt
+                q.append(i)
+
+
+
+if k in set(visited):
+    for i in range(1,n+1):
+        if visited[i]==k:
+            print(i)
 else :
-    for i in bns:
-        print(i)
+    print(-1)
